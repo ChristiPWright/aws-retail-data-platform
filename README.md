@@ -35,3 +35,15 @@ Cut ETL maintenance overhead with managed Glue jobs.
 Demonstrated production patterns used by companies like Netflix (streaming + Redshift/EMR for analytics), retail chains (customer 360 views), and fintech (transaction monitoring).
 
 * This project is built as a study aid for AWS Certified Data Engineer - Associate (DEA-C01) inspired by AWS Certified Data Engineer - Associate (DEA-C01) [Full Course In 285min] by Johnny Chivers
+
+## Setup Environment Variables
+
+1. Copy `.env.example` to `.env`
+2. Fill in your values (AWS_USERNAME, etc.)
+3. Run `cdk synth` or `cdk deploy`
+
+## IAM assumptions
+This repo assumes you have an AWS account and authenticated credentials (via AWS CLI profile, SSO, or temporary session).
+Run `aws configure` or use AWS SSO/IAM Identity Center.
+Bootstrap CDK once: `cdk bootstrap aws://YOUR_ACCOUNT/YOUR_REGION` (requires IAM perms to create bootstrap roles).
+Your deploying identity needs basic perms: CloudFormation full access + IAM pass role + S3/EC2/VPC create (or use admin for dev).
