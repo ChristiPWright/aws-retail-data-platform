@@ -33,3 +33,5 @@ Reduced time-to-insight from days to minutes via Athena/Redshift.
 Enabled real-time monitoring of key metrics (e.g., live sales trends).
 Cut ETL maintenance overhead with managed Glue jobs.
 Demonstrated production patterns used by companies like Netflix (streaming + Redshift/EMR for analytics), retail chains (customer 360 views), and fintech (transaction monitoring).
+
+* This project is built as a study aid for AWS Certified Data Engineer - Associate (DEA-C01) inspired by AWS Certified Data Engineer - Associate (DEA-C01) [Full Course In 285min] by Johnny Chivers
