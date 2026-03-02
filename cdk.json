@@ -1,0 +1,19 @@
+{
+  "app": "python3 app.py",
+  "watch": {
+    "include": [
+      "**"
+    ],
+    "exclude": [
+      "cdk.out/**",
+      "node_modules/**",
+      "**/*.d.ts",
+      "**/*.js",
+      "test/**"
+    ]
+  },
+  "context": {
+    "aws-cdk:enableDiffNoFail": "true",
+    "@aws-cdk/core:stackRelativeExports": "true"
+  }
+}

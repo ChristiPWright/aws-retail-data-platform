@@ -54,14 +54,16 @@ class FoundationStack(Stack):
         )
 
         # VPC
-        vpc = ec2.Vpc(
-            self,
-            "VPC",
-            cidr=vpc_cidr.value_as_string,
-            enable_dns_support=True,
-            enable_dns_hostnames=True,
-            max_azs=2,  # We'll use first two AZs
-            subnet_configuration=[],  # We'll define subnets manually to match exact CIDRs
+        vpc = (
+            ec2.Vpc.Builder.create(self, "VPC")
+            .ip_addresses(
+                ec2.IpAddresses.cidr(vpc_cidr.value_as_string)  # ← This still uses the parameter
+            )
+            .enable_dns_support(True)
+            .enable_dns_hostnames(True)
+            .max_azs(2)
+            .subnet_configuration([])  # subnets manually added below
+            .build()
         )
 
         # Override default subnets – create exactly two public ones with specified CIDRs
