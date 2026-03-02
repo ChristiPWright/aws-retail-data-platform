@@ -22,6 +22,7 @@ class FoundationStack(Stack):
             description="An environment name that is prefixed to resource names",
         )
 
+        # When used in vpc init --> Error: 'cidr' property must be a concrete CIDR string, got a Token (we need to parse it for automatic subdivision)
         vpc_cidr = CfnParameter(
             self,
             "VpcCIDR",
@@ -53,18 +54,17 @@ class FoundationStack(Stack):
             description="Please enter the name for your S3 bucket. This will used throughout the course and must be unique globally within AWS.",
         )
 
+        # ec2.IpAddresses.cidr(vpc_cidr.value_as_string)  # ← This still uses the parameter
         # VPC
-        vpc = (
-            ec2.Vpc.Builder.create(self, "VPC")
-            .ip_addresses(
-                ec2.IpAddresses.cidr(vpc_cidr.value_as_string)  # ← This still uses the parameter
-            )
-            .enable_dns_support(True)
-            .enable_dns_hostnames(True)
-            .max_azs(2)
-            .subnet_configuration([])  # subnets manually added below
-            .build()
+
+        vpc = ec2.Vpc(self, "VPC",
+            ip_addresses = ec2.IpAddresses.cidr('10.0.0.0/16'),
+            enable_dns_hostnames = True,
+            enable_dns_support = True,
+            max_azs = 2,
+            subnet_configuration=[]
         )
+        
 
         # Override default subnets – create exactly two public ones with specified CIDRs
         subnet1 = ec2.PublicSubnet(
